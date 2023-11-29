@@ -4,15 +4,33 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
   --color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --accent: #EB43A3;
+  --background-elevated: #444;
+  --background-mid: #666;
   --background: #242424;
+  color: var(--color);
+  background-color: var(--background);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #ffffff;
+    --background-elevated: #e3e3e3;
+    --background-mid: #ccc;
+    --color: #213547;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: var;
+  }
 }
 
 a {
@@ -44,34 +62,6 @@ h1 {
   margin: 0 auto;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -79,7 +69,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--background-elevated);
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -91,29 +81,15 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-    --background: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
 .contact-icon {
   fill: transparent;
   width: 200px;
   height: 200px;
   transition: background-size 0.25s ease, opacity 0.25s ease;
-  background: radial-gradient(#ffffffff 0%, #ffffff22 50%, transparent 70%);
-  background-size: 0% 0%;
-  background-position: center;
-  background-repeat: no-repeat;
+  /* background: radial-gradient(#ffffffff 0%, #ffffff22 50%, transparent 70%); */
+  /* background-size: 0% 0%; */
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
   opacity: 0.3;
 }
 
@@ -136,9 +112,11 @@ button:focus-visible {
   /* background-size: 100% 100%; */
   opacity: 1;
   animation: pulse 0.4s ease-in;
+  /* stroke: var(--accent); */
   /* opacity: 0.1; */
   /* transform: scale(1.1); */
 }
+
 
 @keyframes spin {
   0% {
@@ -170,17 +148,29 @@ button:focus-visible {
 .contact-icon path {
   /* stroke: 1px solid; */
   stroke-width: 4px;
-  stroke: white;
-  border: 1px solid white;
+  fill: var(--background-mid);
+  /* stroke: var(--color); */
   /* opacity: 0.3; */
   transition: opacity 0.25s ease, fill 0.25s ease, stroke 0.25s ease;
+}
+
+.contact-icon.active path {
+  fill: #702f60;
 }
 
 .contact-icon.top > :nth-child(1), 
 .contact-icon.right > :nth-child(2), 
 .contact-icon.bottom > :nth-child(3), 
 .contact-icon.left > :nth-child(4) {
-  fill: white;
+  fill: var(--color);
+  opacity: 1;
+}
+
+.contact-icon.active.top > :nth-child(1), 
+.contact-icon.active.right > :nth-child(2), 
+.contact-icon.active.bottom > :nth-child(3), 
+.contact-icon.active.left > :nth-child(4) {
+  fill: var(--accent);
   opacity: 1;
 }
 
@@ -219,6 +209,7 @@ h1 {
   white-space: pre;
   margin-top: -50px;
   transition-delay: 4.2s;
+  font-size: 20px;
 }
 
 .hint {
@@ -241,20 +232,34 @@ h1 {
   position: relative;
   padding: 20px 15px;
   z-index: 1;
-  border: 1px solid var(--color);
+  border: 1px solid var(--background-mid);
   box-sizing: border-box;
   border-radius: 8px;
   opacity: 0;
   transform-origin: top right;
   transform: scale(0.9);
   transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 #hint-modal h2 {
-  margin-top: 0px;
+  margin: 0px 0px 8px 0px;
 }
 
 #hint-modal.show {
   opacity: 1;
   transform: scale(1);
+}
+
+@keyframes dropin {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+#hint-modal p {
+  margin: 0px 0px 10px 0px;
+  animation: dropin 0.5s ease;
 }

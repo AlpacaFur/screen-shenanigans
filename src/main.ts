@@ -27,11 +27,11 @@ document.getElementById("hint-button")?.addEventListener("click", ()=>{
 })
 
 let hints = [
+  {type: "hint", text: "I don't deal in ciphers. No language is required."},
   {type: "hint", text: "I can feel the edges of my home."},
   {type: "hint", text: "Sometimes I prefer to touch a wall, other times I don't."},
-  {type: "hint", text: "I don't deal in ciphers. No language is required."},
   {type: "hint", text: "Who am I? I'm this page."},
-  {type: "hint", text: "Try resizing me."},
+  {type: "hint", text: "I'm a shapeshifter at heart. I change size and shape all the time."},
   {type: "big hint", text: "Try moving me to touch the edges of the screen or move me away."},
   {type: "answer", text: "This page knows when it's touching the edge of the screen. Each of the four-pointed glyphs represents a combination of the page touching edges of the screen. The glyphs are completed in order."},
 ]
@@ -153,14 +153,14 @@ function displaySize() {
 function formatTimeDifference(timestampA: number, timestampB: number) {
   const diff = timestampA - timestampB
   const seconds = Math.floor(diff / 1000)
-  const secondsPlural = seconds !== 1 ? "s" : ""
+  // const secondsPlural = seconds !== 1 ? "s" : ""
   const minutes = Math.floor(seconds / 60)
-  const minutesPlural = minutes !== 1 ? "s" : ""
+  // const minutesPlural = minutes !== 1 ? "s" : ""
 
   if (minutes >= 1) {
-    return `${minutes} min${minutesPlural} ${seconds % 60} sec${secondsPlural}`
+    return `${minutes}m${seconds % 60}s`
   } else {
-    return `${seconds} sec${secondsPlural}`
+    return `${seconds}s`
   }
 
 }
@@ -175,10 +175,10 @@ function winGame() {
     })
   const now = Date.now()
   const pageOpenTime = formatTimeDifference(now, pageOpened)
-  const pageMoveTime = windowMoved === - 1 ? "never >:(" : formatTimeDifference(now, windowMoved)
-  const firstMatchTime = formatTimeDifference(now, firstCompleted)
+  const pageMoveTime = windowMoved === - 1 ? "never >:(" : formatTimeDifference(windowMoved, pageOpened)
+  const firstMatchTime = formatTimeDifference(firstCompleted, pageOpened)
   const times = document.getElementById("times")!
-  times.textContent = `Page open: ${pageOpenTime} ago\nWindow first moved: ${pageMoveTime} ago\nFirst match: ${firstMatchTime} ago`
+  times.textContent = `Total Time: ${pageOpenTime}\nWindow First Moved: after ${pageMoveTime}\nFirst Match: after ${firstMatchTime}`
   times.classList.add("show")
   
 }
