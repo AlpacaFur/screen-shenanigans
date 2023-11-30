@@ -13,13 +13,13 @@ const ICON = [
 
 const contactFunctions: Record<string, () => boolean > = {
   // @ts-expect-error availTop is defined in most browsers
-  "top": () => (screen.availTop ?? 0) === window.screenTop,
+  "top": () => (screen.availTop ?? 0) >= window.screenTop,
   // @ts-expect-error availLeft is defined in most browsers
-  "right": () => window.screenLeft - (screen.availLeft ?? 0) + window.outerWidth === screen.availWidth,
+  "right": () => window.screenLeft - (screen.availLeft ?? 0) + window.outerWidth >= screen.availWidth,
   // @ts-expect-error availTop is defined in most browsers
-  "bottom": () => window.screenTop - (screen.availTop ?? 0) + window.outerHeight === screen.availHeight,
+  "bottom": () => window.screenTop - (screen.availTop ?? 0) + window.outerHeight >= screen.availHeight,
   // @ts-expect-error availLeft is defined in most browsers
-  "left": () => (screen.availLeft ?? 0) === window.screenLeft,
+  "left": () => (screen.availLeft ?? 0) >= window.screenLeft,
 }
 
 document.getElementById("hint-button")?.addEventListener("click", ()=>{
